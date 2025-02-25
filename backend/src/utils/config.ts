@@ -10,6 +10,25 @@ let defaultBucket = process.env.AWS_S3_BUCKET || '';
 let hfToken = process.env.HF_TOKEN || '';
 let maxConcurrentTransfers = parseInt(process.env.MAX_CONCURRENT_TRANSFERS || '2', 10);
 
+// Load proxy settings from environment variables
+const proxyHost = process.env.HTTP_PROXY_HOST;
+const proxyPort = process.env.HTTP_PROXY_PORT ? parseInt(process.env.HTTP_PROXY_PORT) : undefined;
+const proxyUser = process.env.HTTP_PROXY_USER;
+const proxyPassword = process.env.HTTP_PROXY_PASSWORD;
+
+// Check if the proxy is enabled based on environment variables
+const isProxyEnabled = !!(proxyHost && proxyPort);
+
+export const proxyConfig = {
+  proxy: isProxyEnabled
+      ? {
+            host: proxyHost!,
+            port: proxyPort!,
+            auth: proxyUser && proxyPassword ? { username: proxyUser, password: proxyPassword } : undefined
+        }
+      : false // Disables proxy if not needed
+};
+
 export const initializeS3Client = (): S3Client => {
   return new S3Client({
     region: region,
