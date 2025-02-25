@@ -15,7 +15,7 @@ import { Readable } from 'stream';
 import { getHFConfig, getMaxConcurrentTransfers, getS3Config } from '../../../utils/config';
 
 const limit = pLimit(getMaxConcurrentTransfers());
-
+          
 interface UploadProgress {
   loaded: number;
   status: 'idle' | 'queued' | 'uploading' | 'completed';
@@ -298,7 +298,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
       const response = await axios.head(fileUrl, { headers: auth_headers });
       const fileSize = response.headers['content-length'];
       const fileStream = (
-        await axios.get(fileUrl, {
+        await axios.get(proxyConfig, fileUrl, {
           headers: auth_headers,
           responseType: 'stream',
         })
@@ -363,7 +363,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
       const { s3Client } = getS3Config();
       let modelInfo: any = {};
       try {
-        modelInfo = await axios.get('https://huggingface.co/api/models/' + modelName + '?', {
+        modelInfo = await axios.get(proxyConfig,'https://huggingface.co/api/models/' + modelName + '?', {
           headers: {
             Authorization: `Bearer ${getHFConfig()}`,
           },
@@ -375,7 +375,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
       let authorizedUser = true;
       if (modelGated !== false) {
         try {
-          await axios.get('https://huggingface.co/api/whoami-v2?', {
+          await axios.get(proxyConfig,'https://huggingface.co/api/whoami-v2?', {
             headers: {
               Authorization: `Bearer ${getHFConfig()}`,
             },
