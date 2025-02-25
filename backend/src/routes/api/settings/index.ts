@@ -85,7 +85,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
   fastify.post('/test-huggingface', async (req: FastifyRequest, reply: FastifyReply) => {
     const { hfToken } = req.body as any;
     try {
-      const response = await axios.get(proxyConfig, 'https://huggingface.co/api/whoami-v2?', {
+      const response = await axios.get('https://huggingface.co/api/whoami-v2?', {
         headers: {
           Authorization: `Bearer ${hfToken}`,
         },
