@@ -5,6 +5,7 @@ import { NodeJsClient } from '@smithy/types';
 import axios from 'axios';
 
 import {
+  proxyConfig,
   updateS3Config,
   getS3Config,
   getHFConfig,
