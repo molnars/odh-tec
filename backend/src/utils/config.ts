@@ -19,7 +19,7 @@ const proxyPassword = process.env.HTTP_PROXY_PASSWORD;
 // Check if the proxy is enabled based on environment variables
 const isProxyEnabled = !!(proxyHost && proxyPort);
 
-export const proxyConfig = {
+export const proxyConfig = (): proxyConfig => {
   proxy: isProxyEnabled
       ? {
             host: proxyHost!,
