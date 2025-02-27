@@ -80,6 +80,9 @@ All the file transfers (computer->backend->S3 or Huggingface->S3) are fully stre
 - In the above file, you will also find how to set you HuggingFace Token, as well as a parameter to control the maximum number of parallel file uploads or transfers.
 - At anytime, you can modify those values in the **Settings** menu of the application. The new values are only valid for the time the container is running. No modifications are made to the original Data Connection or the Environment variables you set at startup.
 
+###
+ for http based web-proxy setups (https based is currently not implemented) use the HTTP_PROXY_HOST and HTTP_PROXY_PORT environment variable to provide the proxy details.
+
 ## Development
 
 - Requirements: NodeJS 18 minimum.
