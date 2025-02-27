@@ -19,6 +19,7 @@ const proxyPassword = process.env.HTTP_PROXY_PASSWORD;
 // Check if the proxy is enabled based on environment variables
 const isProxyEnabled = !!(proxyHost && proxyPort);
 
+// proxy structure for configuring web-proxy isage for axios/huggingface
 export const proxyConfig = (): proxyConfig => {
   proxy: isProxyEnabled
       ? {
