@@ -28,6 +28,7 @@ export const proxyConfig = (): proxyConfig => {
             auth: proxyUser && proxyPassword ? { username: proxyUser, password: proxyPassword } : undefined
         }
       : false // Disables proxy if not needed
+  console.log("PROXY enabled: ${isProxyEnabled}, settings: ${proxy});
 };
 
 export const initializeS3Client = (): S3Client => {
